@@ -15,6 +15,7 @@ public class Main {
 		Scanner dou_scanner = new Scanner(System.in);
 		int menu_index;
 		int id_ref = 6;
+		int id_check;
 
 		employees.add(new Hourly("Bango", "Capital das Terras Verdes", 1, 150.00));
 		employees.add(new Salaried("Cesar", "Terras de Ballor", 2, 600.00));
@@ -53,7 +54,16 @@ public class Main {
 			break;
 		case 2:
 			System.out.println("Informe o Numero do Funcionario a ser Removido:\t");
-			int id_check = int_scanner.nextInt();
+			id_check = int_scanner.nextInt();
+			for(int i = 0; i < employees.size(); i++){
+				if(id_check == employees.get(i).getId()){
+					employees.remove(i);
+				}
+			}
+			break;
+		case 3:
+			System.out.println("Informe o Numero do Funcionario Associado ao Cartao:\t");
+			id_check = int_scanner.nextInt();
 			for(int i = 0; i < employees.size(); i++){
 				if(id_check == employees.get(i).getId()){
 					employees.remove(i);
