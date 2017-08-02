@@ -19,6 +19,11 @@ public class Main {
 		int menu_index;
 		int id_ref = 6;
 		int id_check;
+		double tax_in;
+		Comissioned comissioned;
+		Hourly hourly;
+		Salaried salaried;
+		Employee employee;
 
 		id_in.add(1);
 		id_in.add(2);
@@ -33,7 +38,7 @@ public class Main {
 		employees.put(id_in.get(4), new Hourly("Damiao", "Puris Puris", 5, 2.00));
 
 		do{
-		System.out.println("MENU:\n[1] - Adicionar Empregado;\n[2] - Remover Empregado;\n[3] - Lancar Cartao;\n[0] - Parar o Programa.\n");
+		System.out.println("MENU:\n[1] - Adicionar Empregado;\n[2] - Remover Empregado;\n[3] - Lancar Cartao;\n[4] - Lancar Resultado de Venda;\n[5] - Lancar Taxa de Servico;\n[0] - Parar o Programa.\n");
 		menu_index = int_scanner.nextInt();
 
 		switch(menu_index){
@@ -71,16 +76,82 @@ public class Main {
 		case 3:
 			System.out.println("Informe o Numero do Funcionario Associado ao Cartao:\t");
 			id_check = int_scanner.nextInt();
-			Hourly hourly = (Hourly) employees.get(id_check);
+			hourly = (Hourly) employees.get(id_check);
 			hourly.getSituation();
 			employees.replace(id_check, hourly);
 			break;
 		case 4:
 			System.out.println("Informe o Numero do Vendedor:\t");
 			id_check = int_scanner.nextInt();
-			Comissioned comissioned = (Comissioned) employees.get(id_check);
+			comissioned = (Comissioned) employees.get(id_check);
 			comissioned.sellResult();
+			employees.replace(id_check, comissioned);
 			break;
+		case 5:
+			System.out.println("Informe o Numero de Identificacao do Empregado:\t");
+			id_check = int_scanner.nextInt();
+			System.out.println("Informe a Taxa a ser Cobrada:\t");
+			tax_in = dou_scanner.nextInt();
+			if(employees.get(id_check).getType().equals("Comissioned")) {
+				comissioned = (Comissioned) employees.get(id_check);
+				comissioned.tax(tax_in);
+				employees.replace(id_check, comissioned);
+			}else if(employees.get(id_check).getType().equals("Hourly")) {
+				hourly = (Hourly) employees.get(id_check);
+				hourly.tax(tax_in);
+				employees.replace(id_check, hourly);
+			}else if(employees.get(id_check).getType().equals("Salaried")) {
+				salaried = (Salaried) employees.get(id_check);
+				salaried.tax(tax_in);
+				employees.replace(id_check, salaried);
+			}
+			break;
+		case 6:
+			System.out.println("Informe o Numero de Identificacao do Empregado:\t");
+			id_check = int_scanner.nextInt();
+			System.out.println("MENU:\n[1] - Alterar Nome;\n[2] - Alterar Endereco;\n[3] - Alterar Tipo;\n[4] - Taxa Sindical;\n");
+			int inner_menu = int_scanner.nextInt();
+			
+			switch(inner_menu) {
+			case 1:
+				System.out.println("Insira o novo nome:\t");
+				String name_set = str_scanner.nextLine();
+				employees.get(id_check).setName(name_set);
+				break;
+			case 2:
+				System.out.println("Insira o novo endereco:\t");
+				String adress_set = str_scanner.nextLine();
+				employees.get(id_check).setAdress(adress_set);
+				break;
+			case 3:
+				System.out.println("Insira o novo tipo:\t");
+				String type_set = str_scanner.nextLine();
+				
+				if(type_set.equals("Comissioned")) {
+					employee = employees.get(id_check);
+					//Como fazer para criar um "Comissioned" a partir de employee aproveitando seus dados?
+				}
+				
+				break;
+			case 4:
+				System.out.println("Informe a nova Taxa a ser Cobrada:\t");
+				tax_in = dou_scanner.nextInt();
+				if(employees.get(id_check).getType().equals("Comissioned")) {
+					comissioned = (Comissioned) employees.get(id_check);
+					comissioned.tax(tax_in);
+					employees.replace(id_check, comissioned);
+				}else if(employees.get(id_check).getType().equals("Hourly")) {
+					hourly = (Hourly) employees.get(id_check);
+					hourly.tax(tax_in);
+					employees.replace(id_check, hourly);
+				}else if(employees.get(id_check).getType().equals("Salaried")) {
+					salaried = (Salaried) employees.get(id_check);
+					salaried.tax(tax_in);
+					employees.replace(id_check, salaried);
+				}
+				break;
+			}
+
 		}
 		}while(menu_index != 0);
 

@@ -6,8 +6,16 @@ public class Hourly extends Employee{
 	double hours_to_pay;
 	double start;
 	double end;
+	double tax;
 	Scanner dou_scanner = new Scanner(System.in);
 
+	public double getHours_to_pay() {
+		return hours_to_pay - tax;
+	}
+
+	public void tax(double tax) {
+		this.tax = tax;
+	}
 
 	public void getSituation() {
 		if(this.start == 0){
@@ -42,5 +50,6 @@ public class Hourly extends Employee{
 		this.hour_price = hour_price_in;
 		this.start = 0;
 		this.hours_to_pay = 0;
+		this.tax = 0;
 	}
 }
