@@ -20,6 +20,11 @@ public class Main {
 		int id_ref = 6;
 		int id_check;
 		double tax_in;
+		
+		double comission_in;
+		double hour_price_in;
+		double month_price_in;
+		
 		Comissioned comissioned;
 		Hourly hourly;
 		Salaried salaried;
@@ -52,17 +57,17 @@ public class Main {
 			String type_in = str_scanner.nextLine();
 			if(type_in.equals("Hourly")){
 				System.out.println("Informe o Valor da Hora do Empregado:\t");
-				double hour_price_in = dou_scanner.nextDouble();
+				hour_price_in = dou_scanner.nextDouble();
 				employees.put(id_ref, new Hourly(name_in, adress_in, id_ref, hour_price_in));
 			}
 			else if(type_in.equals("Salaried")){
 				System.out.println("Informe o Valor do Salario do Empregado:\t");
-				double month_price_in = dou_scanner.nextDouble();
+				month_price_in = dou_scanner.nextDouble();
 				employees.put(id_ref, new Salaried(name_in, adress_in, id_ref, month_price_in));
 			}
 			else if(type_in.equals("Comissioned")){
 				System.out.println("Informe a Comissao do Empregado:\t");
-				double comission_in = dou_scanner.nextDouble();
+				comission_in = dou_scanner.nextDouble();
 				employees.put(id_ref, new Comissioned(name_in, adress_in, id_ref, comission_in));
 			}
 			id_ref++;
@@ -128,8 +133,23 @@ public class Main {
 				String type_set = str_scanner.nextLine();
 				
 				if(type_set.equals("Comissioned")) {
+					System.out.println("Informe a Comissao do Empregado:\t");
+					comission_in = dou_scanner.nextDouble();
 					employee = employees.get(id_check);
-					//Como fazer para criar um "Comissioned" a partir de employee aproveitando seus dados?
+					comissioned = new Comissioned(employee.getName(), employee.getAdress(), id_check, comission_in);
+					employees.replace(id_check, comissioned);
+				}else if(type_set.equals("Salaried")) {
+					System.out.println("Informe o Salario do Empregado:\t");
+					month_price_in = dou_scanner.nextDouble();
+					employee = employees.get(id_check);
+					salaried = new Salaried(employee.getName(), employee.getAdress(), id_check, month_price_in);
+					employees.replace(id_check, salaried);
+				}else if(type_set.equals("Hourly")) {
+					System.out.println("Informe o Preco da Hora do Empregado:\t");
+					hour_price_in = dou_scanner.nextDouble();
+					employee = employees.get(id_check);
+					hourly = new Hourly(employee.getName(), employee.getAdress(), id_check, hour_price_in);
+					employees.replace(id_check, hourly);
 				}
 				
 				break;

@@ -1,5 +1,5 @@
 
-public class Employee {
+public abstract class Employee {
 	String name;
 	String adress;
 	int id;
@@ -40,5 +40,7 @@ public class Employee {
 	public int getId() {
 		return id;
 	}
+	
+	public abstract void tax(double tax);
 
 }
